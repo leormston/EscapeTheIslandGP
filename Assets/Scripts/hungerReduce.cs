@@ -9,8 +9,16 @@ public class hungerReduce : MonoBehaviour
     public int hunger = 100;
     public int counter;
 
+    public int maxHunger = 100;
+    public HungerBar hungerBar;
+
     //the hunger text
     public Text hungerText;
+
+    void start(){
+        hunger = maxHunger;
+        hungerBar.SetMaxHunger(hunger);
+    }
 
     public void hungerIncrease() {
         //test if hunger is not 100 yet
@@ -32,11 +40,13 @@ public class hungerReduce : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //counter reduce hunger every 3 second
+        //counter reduce hunger every 30 second
         counter++;
-        if (counter == 3000) {
+
+        if (counter == 300) {
             hunger--;
             hungerText.text = "Hunger: " + hunger.ToString();
+            hungerBar.SetHunger(hunger);
             counter = 0;
         }
         if (hunger == 0) {
