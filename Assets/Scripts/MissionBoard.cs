@@ -7,7 +7,11 @@ public class MissionBoard : MonoBehaviour
 {
     public Text missionContent;
     public bool escape = false;
-        
+    private bool firstHull = false;
+    private bool firstEngine = false;
+    public DialogueObject event5;
+    public DialogueObject event6;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +27,8 @@ public class MissionBoard : MonoBehaviour
         Debug.Log("the number is " + craftingScript.missionList.Count);*/
     }
 
-    void Update() {
+    void Update()
+    {
         //get resource
         GameObject resource = GameObject.Find("GameManager");
         ResourceCounter resourceScript = resource.GetComponent<ResourceCounter>();
@@ -31,17 +36,31 @@ public class MissionBoard : MonoBehaviour
         GameObject craft = GameObject.Find("GameManager");
         Crafting craftingScript = craft.GetComponent<Crafting>();
 
-        if (craftingScript.current >= craftingScript.missionList.Count)
+        GameObject gameManager = GameObject.Find("GameManager");
+        DialogueSystem dialogueScript = gameManager.GetComponent<DialogueSystem>();
+
+        if (craftingScript.current == 1 && firstHull == false)
         {
+            craftingScript.closeCrafting();
+            dialogueScript.startDialogue(event5);
+            firstHull = true;
+        }
+
+        if (craftingScript.current >= craftingScript.missionList.Count && firstEngine == false)
+        {
+            craftingScript.closeCrafting();
+            dialogueScript.startDialogue(event6);
             missionContent.text = "Return to the ship to escape";
             escape = true;
+            firstEngine = true;
         }
-        else {
+        else
+        {
             missionContent.text = "Repair " + craftingScript.missionList[craftingScript.current].itemName;
         }
-        
+
 
     }
 
-    
+
 }

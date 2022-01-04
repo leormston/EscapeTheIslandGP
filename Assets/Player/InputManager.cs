@@ -16,6 +16,13 @@ public class InputManager : MonoBehaviour
     Vector2 mouseInput;
     public GameObject projectile;
     public Text healthText;
+    public float maxHealth = 150;
+    public HealthBar healthBar;
+    
+    void start(){
+        health = maxHealth;
+        healthBar.SetMaxHealth(health);
+    }
     
     private void Awake()
     {
@@ -53,6 +60,8 @@ public class InputManager : MonoBehaviour
         health -= damage;
 
         healthText.text = "Health: "+ health.ToString();
+
+        healthBar.SetHealth(health);
 
         //if (health <= 0) Invoke(nameof(DestroyPlayer), 0.5f);
         if (health <= 0) {

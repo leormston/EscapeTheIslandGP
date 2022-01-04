@@ -13,9 +13,6 @@ public class checkInSight : MonoBehaviour
 
     private void Update()
     {
-        //call hunger
-        GameObject hungerDisplay = GameObject.Find("HungerDisplay");
-        hungerReduce hungerScript = hungerDisplay.GetComponent<hungerReduce>();
 
         //get player controller for the uion flag
         GameObject PlayerController = GameObject.Find("Player");
@@ -25,14 +22,23 @@ public class checkInSight : MonoBehaviour
         GameObject gameManager = GameObject.Find("GameManager");
         ResourceCounter resourceScript = gameManager.GetComponent<ResourceCounter>();
 
+        // call hunger
+        //GameObject hungerDisplay = GameObject.Find("HungerDisplay");
+        hungerReduce hungerScript = gameManager.GetComponent<hungerReduce>();
+
+        //call equipItem
+        EquipItem equipScript = gameManager.GetComponent<EquipItem>();
+
         //a foward vector 
         Vector3 fwd = transform.TransformDirection(Vector3.forward);
-        if (playerScript.uiOn == false) {
+        if (playerScript.uiOn == false)
+        {
             if (Physics.Raycast(transform.position, fwd, out hit))
             {
                 //Debug.Log("hit object" + hit.collider.name);
 
-                if (Keyboard.current.eKey.wasPressedThisFrame) {
+                if (Keyboard.current.eKey.wasPressedThisFrame)
+                {
                     if (hit.collider.name.Contains("berries"))
                     {
                         Destroy(hit.transform.gameObject);
@@ -58,16 +64,24 @@ public class checkInSight : MonoBehaviour
 
                         resourceScript.scrap += 1;
                     }
-                    else if (hit.collider.name.Contains("Ship")) {
+                    else if (hit.collider.name.Contains("Ship"))
+                    {
                         MissionBoard missionScript = gameManager.GetComponent<MissionBoard>();
-                        if (missionScript.escape) {
+                        if (missionScript.escape)
+                        {
                             GameOver gameOverScript = gameManager.GetComponent<GameOver>();
                             gameOverScript.displayGameOver(3);
                         }
                     }
 
+                    else if (hit.collider.name.Contains("BanyanTree") && equipScript.axeOn)
+                    {
+                        GameObject.Instantiate(wood, hit.transform.gameObject.transform.position, hit.transform.gameObject.transform.rotation);
+                        Destroy(hit.transform.gameObject);
+                    }
+
                 }
-                
+
             }
         }
 

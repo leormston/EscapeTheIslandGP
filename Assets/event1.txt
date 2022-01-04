@@ -1,0 +1,5 @@
+Fairy
+You are awake.
+Traveler
+Where is this place.
+

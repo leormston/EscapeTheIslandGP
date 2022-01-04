@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f5713f6c65e994c8043c2cbc5c3324, type: 3}
+  m_Name: Event1
+  m_EditorClassIdentifier: 
+  dialogue:
+  - You are awake.
+  - Where is this place?
+  - This island is cursed, you have to leave this place!
+  - Oh no, my ship is damaged, I have to fix it.
+  - 'See if there are any materials on the beach. '
+  - Try gathering some woods and stones.
+  - They will be useful for survival.
+  - (Press 'I' to open the inventory)
+  - (Press 'j' to open the crafting menu)
+  - (Press 'M' to open the mini map)
+  - (The current mission is showed on the top right corner)
+  potrait:
+  - Fairy
+  - Traveler
+  - Fairy
+  - Traveler
+  - Traveler
+  - Traveler
+  - Traveler
+  - Traveler
+  - Traveler
+  - Traveler
+  - Traveler

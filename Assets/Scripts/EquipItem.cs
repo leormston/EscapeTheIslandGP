@@ -25,6 +25,9 @@ public class EquipItem : MonoBehaviour
     public bool firstAxe = false;
     public bool firstSlinger = false;
 
+    public DialogueObject event4;
+    public DialogueObject event8;
+
     private void Start()
     {
         axeEquip.onClick.AddListener(equipTool);
@@ -40,7 +43,13 @@ public class EquipItem : MonoBehaviour
         if (firstAxe == false) {
             GameObject gameManager = GameObject.Find("GameManager");
             displayTutorials tutorialScript = gameManager.GetComponent<displayTutorials>();
-            tutorialScript.displayAxeTutorial();
+            //get dialogue for seeing trees
+            DialogueSystem dialogueScript = gameManager.GetComponent<DialogueSystem>();
+            //close inventory
+            ResourceCounter resourceScript = gameManager.GetComponent<ResourceCounter>();
+            resourceScript.closeInventory();
+            dialogueScript.startDialogue(event4);
+            //tutorialScript.displayAxeTutorial();
             firstAxe = true;
         }
     }
@@ -51,7 +60,11 @@ public class EquipItem : MonoBehaviour
         {
             GameObject gameManager = GameObject.Find("GameManager");
             displayTutorials tutorialScript = gameManager.GetComponent<displayTutorials>();
-            tutorialScript.displaySlingerTutorial();
+            DialogueSystem dialogueScript = gameManager.GetComponent<DialogueSystem>();
+            ResourceCounter resourceScript = gameManager.GetComponent<ResourceCounter>();
+            resourceScript.closeInventory();
+            dialogueScript.startDialogue(event8);
+            //tutorialScript.displaySlingerTutorial();
             firstSlinger = true;
         }
     }

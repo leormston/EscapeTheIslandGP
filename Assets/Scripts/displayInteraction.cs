@@ -11,6 +11,15 @@ public class displayInteraction : MonoBehaviour
 
     public Text content;
 
+    //events
+    public DialogueObject event2;
+
+    public DialogueObject event7;
+
+    //if it is the first time seeing a tree
+    private bool firstTimeTree = true;
+    //if it is the first time seeing an enemy
+    private bool firstTimeEnemy = true;
 
     // Update is called once per frame
     void Update()
@@ -22,7 +31,11 @@ public class displayInteraction : MonoBehaviour
         //get end game flag for escape
         GameObject gameManager = GameObject.Find("GameManager");
         MissionBoard missionScript = gameManager.GetComponent<MissionBoard>();
-        if (playerScript.uiOn == false) {
+        //get dialogue for seeing trees
+        DialogueSystem dialogueScript = gameManager.GetComponent<DialogueSystem>();
+
+        if (playerScript.uiOn == false)
+        {
             if (Physics.Raycast(transform.position, fwd, out hit))
             {
                 if (hit.collider.name.Contains("berries"))
@@ -45,15 +58,32 @@ public class displayInteraction : MonoBehaviour
                     content.text = "scrap, press E to interact";
                     interaction.SetActive(true);
                 }
-                else if (missionScript.escape && hit.collider.name.Contains("Ship")) {
+                else if (missionScript.escape && hit.collider.name.Contains("Ship"))
+                {
                     content.text = "ship, press E to escape";
                     interaction.SetActive(true);
                 }
-                else {
+                else if (hit.collider.name.Contains("BanyanTree"))
+                {
+                    content.text = "Tree, requires axe";
+                    interaction.SetActive(true);
+                    if (firstTimeTree)
+                    {
+                        Debug.Log("into firsttimetree");
+                        firstTimeTree = false;
+                        dialogueScript.startDialogue(event2);
+                    }
+                }
+                else if (hit.collider.name.Contains("Enemy") && firstTimeEnemy) {
+                    dialogueScript.startDialogue(event7);
+                    firstTimeEnemy = false;
+                }
+                else
+                {
                     interaction.SetActive(false);
                 }
             }
         }
-            
+
     }
 }
