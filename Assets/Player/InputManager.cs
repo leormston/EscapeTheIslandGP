@@ -65,6 +65,7 @@ public class InputManager : MonoBehaviour
 
         //if (health <= 0) Invoke(nameof(DestroyPlayer), 0.5f);
         if (health <= 0) {
+            health = 0;
             GameObject gameManager = GameObject.Find("GameManager");
             GameOver gameOverScript = gameManager.GetComponent<GameOver>();
             gameOverScript.displayGameOver(1);
