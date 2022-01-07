@@ -8,7 +8,13 @@ public class EquipItem : MonoBehaviour
 
     public GameObject axe;
 
-    public Transform handPos;
+    [SerializeField] public GameObject slingShot;
+
+    [SerializeField]  public Transform leftHandPos;
+
+    [SerializeField]  public Transform handPos;
+
+    [SerializeField] public Transform rightHandPos;
 
     public GameObject player;
 
@@ -18,7 +24,9 @@ public class EquipItem : MonoBehaviour
 
     public bool axeOn;
 
-    public bool slingerOn;
+    public bool slingOn;
+
+    public bool slingerOn; 
 
     public Button slingerEquip;
 
@@ -36,7 +44,7 @@ public class EquipItem : MonoBehaviour
 
     public void equipTool() {
         //equip the axe
-        GameObject stoneAxe = Instantiate(axe, handPos.position, handPos.rotation);
+        GameObject stoneAxe = Instantiate(axe, leftHandPos.position, leftHandPos.rotation);
         stoneAxe.transform.parent = player.transform;
         //axe on
         axeOn = true;
@@ -55,9 +63,13 @@ public class EquipItem : MonoBehaviour
     }
     public void equipslinger()
     {
+        
+        GameObject sling = Instantiate(slingShot, rightHandPos.position, rightHandPos.rotation);
+        sling.transform.parent = player.transform;
         slingerOn = true;
         if (firstSlinger == false)
         {
+            
             GameObject gameManager = GameObject.Find("GameManager");
             displayTutorials tutorialScript = gameManager.GetComponent<displayTutorials>();
             DialogueSystem dialogueScript = gameManager.GetComponent<DialogueSystem>();
