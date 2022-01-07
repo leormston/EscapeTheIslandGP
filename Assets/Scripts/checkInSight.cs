@@ -10,6 +10,8 @@ public class checkInSight : MonoBehaviour
 
     public GameObject wood;
 
+    public float radius = 3f;
+
 
     private void Update()
     {
